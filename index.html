@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TomeTick - where words meet speed</title>
+  <meta name="description" content="TomeTick: where words meet speed. Track your typing speed (WPM &amp; CPM), analyze text metrics, and manage sessions with a modern, responsive word counter.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6366f1">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="background-animated"></div>
+  <div class="particles"></div>
+
+  <!-- Ambient audio handled by Web Audio API in features.js -->
+
+  <header id="appHeader">
+    <nav class="navbar container">
+      <a href="#" class="logo" id="logo">
+        TomeTick
+        <span class="logo-tagline">where words meet speed</span>
+      </a>
+      <div class="nav-right">
+        <button class="auth-btn" id="authBtn">Login</button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container" id="mainContainer">
+    <!-- Login Section -->
+    <section id="loginSection" class="active">
+      <div class="auth-container">
+        <h2>Welcome Back</h2>
+        <div id="loginMessage"></div>
+        <form id="loginForm">
+          <div class="form-group">
+            <div class="form-field">
+              <input type="email" id="loginEmail" required placeholder=" ">
+              <label class="form-label" for="loginEmail">Email address</label>
+            </div>
+            <div class="error-message" id="loginEmailError"></div>
+          </div>
+          <div class="form-group">
+            <div class="form-field">
+              <input type="password" id="loginPassword" required placeholder=" ">
+              <label class="form-label" for="loginPassword">Password</label>
+            </div>
+            <div class="error-message" id="loginPasswordError"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" id="loginSubmitBtn">Login</button>
+        </form>
+        <div class="auth-links">
+          <a href="#" id="toSignup">Need an account? Sign up</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section id="signupSection">
+      <div class="auth-container">
+        <h2>Create Account</h2>
+        <div id="signupMessage"></div>
+        <form id="signupForm">
+          <div class="form-group">
+            <div class="form-field">
+              <input type="text" id="signupUsername" minlength="3" required placeholder=" ">
+              <label class="form-label" for="signupUsername">Username</label>
+            </div>
+            <div class="error-message" id="signupUsernameError"></div>
+          </div>
+          <div class="form-group">
+            <div class="form-field">
+              <input type="email" id="signupEmail" required placeholder=" ">
+              <label class="form-label" for="signupEmail">Email address</label>
+            </div>
+            <div class="error-message" id="signupEmailError"></div>
+          </div>
+          <div class="form-group">
+            <div class="form-field">
+              <input type="password" id="signupPassword" minlength="8" required placeholder=" ">
+              <label class="form-label" for="signupPassword">Password</label>
+            </div>
+            <div class="error-message" id="signupPasswordError"></div>
+          </div>
+          <div class="form-group">
+            <div class="form-field">
+              <input type="password" id="signupConfirmPassword" required placeholder=" ">
+              <label class="form-label" for="signupConfirmPassword">Confirm password</label>
+            </div>
+            <div class="error-message" id="signupConfirmError"></div>
+          </div>
+          <button type="submit" class="btn btn-primary" id="signupSubmitBtn">Create Account</button>
+        </form>
+        <div class="auth-links">
+          <a href="#" id="toLogin">Already have an account? Login</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboardSection">
+      <div class="dashboard-header">
+        <h1>TomeTick</h1>
+        <div class="tagline">where words meet speed</div>
+        <div class="user-greeting" id="userGreeting"></div>
+      </div>
+
+      <div class="main-content" id="mainContentGrid">
+        <div class="editor-column" id="editorColumn">
+          <div class="editor-section" id="editorSection">
+            <div class="editor-section-header">
+              <h3>Text Editor</h3>
+              <div class="editor-header-controls">
+                <select id="templateSelect" class="template-select">
+                  <option value="none">Templates: none</option>
+                  <option value="email">Formal email</option>
+                  <option value="blog">Blog intro</option>
+                  <option value="essay">Essay paragraph</option>
+                  <option value="cover_letter">Cover letter</option>
+                  <option value="social_media">Social media post</option>
+                  <option value="meeting_agenda">Meeting agenda</option>
+                  <option value="product_description">Product description</option>
+                  <option value="creative_story">Creative story opener</option>
+                </select>
+                <button class="btn btn-secondary btn-inline btn-icon" id="focusModeBtn" title="Focus Mode">🎧 Focus</button>
+                <button class="btn btn-secondary btn-inline btn-icon" id="ghostTextBtn" title="Ghost Text Mode">👻 Ghost</button>
+                <button class="btn btn-secondary btn-inline btn-icon" id="challengeBtn" title="Text Challenge">⚡ Challenge</button>
+                <button class="btn btn-secondary btn-inline btn-icon" id="versionHistoryBtn" title="Version History">📜 Versions</button>
+              </div>
+            </div>
+
+            <div class="editor-wrapper" id="editorWrapper">
+              <div class="ghost-text-overlay" id="ghostTextOverlay"></div>
+              <textarea id="textInput" placeholder="Start typing or paste your text here..."></textarea>
+              <div class="error-highlight-overlay" id="errorHighlightOverlay"></div>
+            </div>
+            <div class="char-count-row">
+              <span id="charCount">0 characters</span>
+              <span class="reading-time" id="readingTime">0 min read</span>
+            </div>
+
+            <div class="editor-actions">
+              <button class="btn btn-secondary btn-inline" id="clearBtn">Clear</button>
+              <button class="btn btn-secondary btn-inline" id="copyBtn">Copy</button>
+              <div class="export-dropdown-wrapper" id="exportDropdownWrapper">
+                <button class="btn btn-secondary btn-inline" id="exportBtn">Export ▾</button>
+                <div class="export-dropdown" id="exportDropdown">
+                  <button class="export-option" data-format="pdf">📄 PDF</button>
+                  <button class="export-option" data-format="markdown">📝 Markdown</button>
+                  <button class="export-option" data-format="docx">📘 DOCX</button>
+                  <button class="export-option" data-format="text">📋 Plain Text</button>
+                </div>
+              </div>
+              <button class="btn btn-secondary btn-inline" id="voiceBtn">Dictation</button>
+              <button class="btn btn-secondary btn-inline" id="dnaReportBtn">📊 DNA Report</button>
+            </div>
+
+            <div class="vocab-popover" id="vocabPopover" style="display:none;">
+              <div class="vocab-popover-title">Try instead:</div>
+              <div class="vocab-suggestions" id="vocabSuggestions"></div>
+            </div>
+          </div>
+
+          <!-- Challenge Mode Panel -->
+          <div class="challenge-panel glass-panel" id="challengePanel" style="display:none;">
+            <div class="challenge-header">
+              <h3>⚡ Text Challenge</h3>
+              <button class="btn btn-secondary btn-inline" id="closeChallengeBtn">✕ Close</button>
+            </div>
+            <textarea id="challengeSourceText" class="challenge-source" placeholder="Paste any external text here to type against..."></textarea>
+            <div class="challenge-info" id="challengeInfo" style="display:none;">
+              <span class="challenge-stat" id="challengeDifficulty">Difficulty: --</span>
+              <span class="challenge-stat" id="challengeReadability">Readability: --</span>
+            </div>
+            <button class="btn btn-primary" id="startChallengeBtn" style="width:auto;padding:0.6rem 1.5rem;">Start Challenge</button>
+            <div class="challenge-active" id="challengeActive" style="display:none;">
+              <div class="challenge-display" id="challengeDisplay"></div>
+              <div class="challenge-metrics">
+                <div class="challenge-metric"><span class="challenge-metric-value" id="challengeAccuracy">100%</span><span class="challenge-metric-label">Accuracy</span></div>
+                <div class="challenge-metric"><span class="challenge-metric-value" id="challengeWpm">0</span><span class="challenge-metric-label">WPM</span></div>
+                <div class="challenge-metric"><span class="challenge-metric-value" id="challengeProgress">0%</span><span class="challenge-metric-label">Progress</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keyboard Heatmap -->
+          <div class="keyboard-heatmap glass-panel" id="keyboardHeatmap">
+            <h3>⌨️ Keyboard Heatmap</h3>
+            <div class="keyboard-layout" id="keyboardLayout"></div>
+            <div class="heatmap-legend">
+              <span class="legend-cool">Fast / Accurate</span>
+              <div class="legend-gradient"></div>
+              <span class="legend-warm">Slow / Error-prone</span>
+            </div>
+          </div>
+
+          <!-- Sentence Rhythm Meter -->
+          <div class="rhythm-panel glass-panel" id="rhythmPanel">
+            <h3>📊 Sentence Rhythm Meter</h3>
+            <div class="rhythm-chart" id="rhythmChart"></div>
+          </div>
+        </div>
+
+        <div class="stats-column" id="statsColumn">
+          <div class="stats-section">
+            <div class="stat-card"><div class="stat-value" id="wordCount">0</div><div class="stat-label">Words</div></div>
+            <div class="stat-card"><div class="stat-value" id="charTotal">0</div><div class="stat-label">Characters</div></div>
+            <div class="stat-card"><div class="stat-value" id="sentenceCount">0</div><div class="stat-label">Sentences</div></div>
+            <div class="stat-card"><div class="stat-value" id="paragraphCount">0</div><div class="stat-label">Paragraphs</div></div>
+          </div>
+
+          <div class="speed-section" id="speedSection">
+            <h3 style="margin-bottom:0.8rem;font-size:1rem;position:relative;z-index:1;">Typing Speed</h3>
+            <div class="speed-metrics">
+              <div class="speed-metric"><div class="speed-value" id="wpm">0</div><div class="speed-label">Words Per Minute</div></div>
+              <div class="speed-metric"><div class="speed-value" id="cpm">0</div><div class="speed-label">Characters Per Minute</div></div>
+            </div>
+            <div class="wpm-chart-container" style="position:relative;z-index:1;margin-top:1rem;">
+              <canvas id="wpmChart" height="120"></canvas>
+            </div>
+            <div class="streak-card">
+              Daily streak: <span class="streak-highlight" id="streakDays">0 days</span>
+              <span class="streak-badges" id="streakBadges"></span><br>
+              Last active: <span id="lastActiveLabel">Never</span>
+            </div>
+          </div>
+
+          <div class="goal-section glass-panel" id="goalSection">
+            <h3>🎯 WPM Goals</h3>
+            <div class="goal-inputs">
+              <div class="goal-field"><label for="dailyGoalInput">Daily Target</label><input type="number" id="dailyGoalInput" min="1" max="300" placeholder="e.g. 60"></div>
+              <div class="goal-field"><label for="weeklyGoalInput">Weekly Target</label><input type="number" id="weeklyGoalInput" min="1" max="300" placeholder="e.g. 80"></div>
+              <button class="btn btn-primary" id="saveGoalsBtn" style="width:auto;padding:0.5rem 1rem;font-size:0.8rem;">Save Goals</button>
+            </div>
+            <div class="goal-chart-container" style="margin-top:1rem;"><canvas id="goalProgressChart" height="150"></canvas></div>
+          </div>
+
+          <div class="tone-section glass-panel" id="toneSection">
+            <h3>🎭 Tone Analysis</h3>
+            <div class="tone-result" id="toneResult">
+              <span class="tone-label" id="toneLabel">Start typing...</span>
+              <div class="tone-bar-track"><div class="tone-bar-fill" id="toneBarFill" style="width:0%"></div></div>
+              <span class="tone-confidence" id="toneConfidence">0% confidence</span>
+            </div>
+          </div>
+
+          <div class="theme-picker-section glass-panel" id="themePickerSection">
+            <h3>🎨 Unlocked Themes</h3>
+            <div class="theme-list" id="themeList"></div>
+          </div>
+
+          <div class="history-section">
+            <h3 style="margin-bottom:0.9rem;font-size:1rem;">Session History</h3>
+            <div class="history-list" id="historyList"><div class="history-empty">No typing activity yet</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Public Profile Section -->
+    <section id="profileSection">
+      <div class="profile-container glass-panel">
+        <div class="profile-header">
+          <div class="profile-avatar" id="profileAvatar">?</div>
+          <h2 id="profileUsername">User</h2>
+        </div>
+        <div class="profile-stats">
+          <div class="profile-stat-card"><div class="profile-stat-value" id="profileStreak">0</div><div class="profile-stat-label">Day Streak</div></div>
+          <div class="profile-stat-card"><div class="profile-stat-value" id="profileTotalWords">0</div><div class="profile-stat-label">Lifetime Words</div></div>
+          <div class="profile-stat-card"><div class="profile-stat-value" id="profileBestWpm">0</div><div class="profile-stat-label">Best WPM</div></div>
+        </div>
+        <div class="profile-badges" id="profileBadges"></div>
+        <div class="profile-chart-container"><h3>WPM Trend (Last 30 Days)</h3><canvas id="profileWpmChart" height="200"></canvas></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Version History Drawer -->
+  <div class="version-drawer-overlay" id="versionDrawerOverlay" style="display:none;"></div>
+  <div class="version-drawer" id="versionDrawer" style="display:none;">
+    <div class="version-drawer-header"><h3>📜 Version History</h3><button class="btn btn-secondary btn-inline" id="closeVersionDrawer">✕</button></div>
+    <div class="version-list" id="versionList"><div class="history-empty">No versions saved yet</div></div>
+  </div>
+
+  <!-- Weekly DNA Report Modal -->
+  <div class="modal-overlay" id="dnaModalOverlay" style="display:none;">
+    <div class="modal-content glass-panel" id="dnaModal">
+      <div class="modal-header"><h2>📊 Weekly Writing DNA</h2><button class="modal-close" id="closeDnaModal">✕</button></div>
+      <div class="dna-stats" id="dnaStats">
+        <div class="dna-stat-card"><div class="dna-stat-value" id="dnaTotalWords">0</div><div class="dna-stat-label">Total Words (7 days)</div></div>
+        <div class="dna-stat-card"><div class="dna-stat-value" id="dnaVocabRichness">0%</div><div class="dna-stat-label">Vocabulary Richness</div></div>
+        <div class="dna-stat-card"><div class="dna-stat-value" id="dnaSentenceVariety">0%</div><div class="dna-stat-label">Sentence Variety</div></div>
+      </div>
+      <div class="dna-chart-container"><h4>Average WPM by Hour of Day</h4><canvas id="dnaHourChart" height="200"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Focus Mode Ambient Bar -->
+  <div class="focus-ambient-bar" id="focusAmbientBar" style="display:none;">
+    <button class="ambient-option active" data-audio="none">🔇 None</button>
+    <button class="ambient-option" data-audio="rain">🌧️ Rain</button>
+    <button class="ambient-option" data-audio="cafe">☕ Café</button>
+    <button class="ambient-option" data-audio="lofi">🎵 Lo-fi</button>
+    <button class="btn btn-secondary btn-inline" id="exitFocusBtn">Exit Focus</button>
+  </div>
+
+  <!-- Restore Confirm Dialog -->
+  <div class="modal-overlay" id="restoreConfirmOverlay" style="display:none;">
+    <div class="modal-content glass-panel modal-small">
+      <h3>Restore this version?</h3>
+      <p>This will replace your current text with the selected snapshot.</p>
+      <div class="modal-actions">
+        <button class="btn btn-secondary btn-inline" id="cancelRestore">Cancel</button>
+        <button class="btn btn-primary" id="confirmRestore" style="width:auto;padding:0.6rem 1.5rem;">Restore</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="features.js"></script>
+</body>
+</html>
