@@ -489,23 +489,250 @@ body.focus-mode textarea { min-height: 70vh; }
 .profile-badges { display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1.5rem; flex-wrap: wrap; }
 .profile-chart-container h3 { font-size: 0.95rem; margin-bottom: 0.7rem; }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 900px) { .main-content { grid-template-columns: 1fr; } }
+/* ===== RESPONSIVE — TABLET (max-width: 900px) ===== */
+@media (max-width: 900px) {
+  .main-content { grid-template-columns: 1fr; gap: 1.5rem; }
+  .container { padding: 0 0.8rem 2rem; }
+  .dashboard-header h1 { font-size: 2.2rem; }
+  .editor-section { padding: 1.5rem; }
+  .speed-section { padding: 1.2rem; }
+  .stats-section { gap: 1rem; }
+  .goal-section, .tone-section, .theme-picker-section { padding: 1.2rem; }
+}
+
+/* ===== RESPONSIVE — MOBILE (max-width: 768px) ===== */
 @media (max-width: 768px) {
   .logo-tagline { display: none !important; }
-  .main-content, .speed-metrics, .stats-section { grid-template-columns: 1fr; gap: 1.5rem; }
-  textarea { min-height: 220px; }
-  .editor-actions { flex-direction: column; }
-  .auth-container { margin: 1.25rem 0.25rem; padding: 2rem 1.5rem; }
-  .dashboard-header h1 { font-size: 2.1rem; }
-  .editor-header-controls { flex-wrap: wrap; }
+  .logo { font-size: 1.3rem; }
+  .navbar { padding: 0.6rem 1rem; border-radius: 16px; }
+  .auth-btn { padding: 0.55rem 1rem; font-size: 0.82rem; }
+  
+  .main-content { grid-template-columns: 1fr; gap: 1.2rem; }
+  .stats-section { grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 1.2rem; }
+  .speed-metrics { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  
+  .dashboard-header { margin-bottom: 1.5rem; }
+  .dashboard-header h1 { font-size: 2rem; letter-spacing: 0.05em; }
+  .dashboard-header .tagline { font-size: 0.8rem; }
+  
+  .editor-section { padding: 1.2rem; }
+  .editor-section-header { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+  .editor-header-controls { flex-wrap: wrap; gap: 0.4rem; width: 100%; }
+  .template-select { min-width: 140px; font-size: 0.78rem; padding: 0.45rem 0.7rem; }
+  .btn-icon { font-size: 0.72rem !important; padding: 0.4rem 0.6rem !important; }
+  
+  textarea { min-height: 200px; font-size: 0.88rem; padding: 1rem; }
+  .ghost-text-overlay, .error-highlight-overlay { padding: 1rem; font-size: 0.88rem; }
+  .char-count-row { font-size: 0.75rem; }
+  
+  .editor-actions { flex-wrap: wrap; gap: 0.4rem; }
+  .editor-actions .btn-inline { padding: 0.5rem 0.75rem; font-size: 0.75rem; }
+  
+  .stat-card { padding: 0.9rem 0.6rem; }
+  .stat-value { font-size: 1.5rem; }
+  .stat-label { font-size: 0.7rem; }
+  
+  .speed-section { padding: 1rem; border-radius: 16px; }
+  .speed-value { font-size: 2.2rem; }
+  .speed-label { font-size: 0.65rem; }
+  .streak-card { font-size: 0.78rem; padding: 0.7rem; }
+  
+  .goal-section { padding: 1rem; }
+  .goal-inputs { flex-direction: column; gap: 0.6rem; }
+  .goal-field { flex: 1; }
+  .goal-field input { width: 100%; }
+  
+  .tone-section { padding: 1rem; }
+  .tone-label { font-size: 1.1rem; }
+  
+  .theme-list { gap: 0.5rem; }
+  .swatch-color { width: 36px; height: 36px; }
+  .theme-swatch span { font-size: 0.6rem; }
+  
+  /* Keyboard Heatmap */
+  .key-btn { width: 30px; height: 30px; font-size: 0.65rem; border-radius: 6px; }
+  .key-space { width: 150px; font-size: 0.6rem; }
+  .keyboard-row:nth-child(2) { padding-left: 10px; }
+  .keyboard-row:nth-child(3) { padding-left: 20px; }
+  .heatmap-legend { font-size: 0.65rem; gap: 0.4rem; }
+  .legend-gradient { width: 80px; height: 7px; }
+  
+  /* Challenge */
+  .challenge-panel { padding: 1rem; }
+  .challenge-source { min-height: 80px; font-size: 0.82rem; }
+  .challenge-display { font-size: 0.82rem; padding: 0.8rem; line-height: 1.6; }
+  .challenge-metrics { flex-direction: column; align-items: center; gap: 0.8rem; }
+  .challenge-metric-value { font-size: 1.2rem; }
+  .challenge-info { flex-direction: column; gap: 0.3rem; }
+  
+  /* Rhythm */
+  .rhythm-chart { max-height: 150px; }
+  
+  /* Modals */
+  .modal-content { width: 95%; padding: 1.2rem; border-radius: 16px; }
+  .modal-header h2 { font-size: 1.15rem; }
+  .dna-stats { grid-template-columns: 1fr; gap: 0.6rem; }
+  .dna-stat-value { font-size: 1.3rem; }
+  .dna-stat-card { padding: 0.8rem; }
+  
+  /* Version Drawer */
   .version-drawer { width: 100%; }
-  .dna-stats, .profile-stats { grid-template-columns: 1fr; }
-  .focus-ambient-bar { flex-wrap: wrap; }
-  .challenge-metrics { flex-direction: column; align-items: center; }
-  .key-btn { width: 32px; height: 32px; font-size: 0.7rem; border-radius: 6px; }
-  .key-space { width: 160px; }
-  .keyboard-row:nth-child(2) { padding-left: 12px; }
-  .keyboard-row:nth-child(3) { padding-left: 22px; }
+  
+  /* Focus Mode */
+  .focus-ambient-bar { 
+    bottom: 10px; padding: 0.5rem 0.7rem; gap: 0.3rem;
+    flex-wrap: wrap; justify-content: center; max-width: 95vw;
+    border-radius: 16px;
+  }
+  .ambient-option { padding: 0.35rem 0.6rem; font-size: 0.72rem; }
+  body.focus-mode textarea { min-height: 50vh; }
+  
+  /* Profile */
+  .profile-stats { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .profile-stat-value { font-size: 1.4rem; }
+  .profile-stat-label { font-size: 0.6rem; }
+  .profile-avatar { width: 60px; height: 60px; font-size: 1.5rem; }
+  
+  /* Auth Forms */
+  .auth-container { margin: 1rem 0.25rem; padding: 1.5rem 1.2rem; border-radius: 16px; }
+  .auth-container h2 { font-size: 1.5rem; }
+  
+  /* History */
+  .history-section { padding: 1rem; }
+  .history-item { font-size: 0.78rem; padding: 0.5rem 0; }
 }
-@media (max-width: 480px) { .container { padding: 0 0.7rem 2rem; } .navbar { padding: 0.6rem 0.9rem; } .logo { font-size: 1.2rem; } }
+
+/* ===== RESPONSIVE — SMALL PHONES (max-width: 480px) ===== */
+@media (max-width: 480px) {
+  .container { padding: 0 0.5rem 1.5rem; }
+  .navbar { padding: 0.5rem 0.75rem; }
+  .logo { font-size: 1.15rem; gap: 0.3rem; }
+  .auth-btn { padding: 0.45rem 0.8rem; font-size: 0.78rem; }
+  
+  .dashboard-header { margin-bottom: 1rem; }
+  .dashboard-header h1 { font-size: 1.6rem; letter-spacing: 0.04em; }
+  .dashboard-header .tagline { font-size: 0.7rem; letter-spacing: 0.06em; }
+  .user-greeting { font-size: 0.85rem; }
+  
+  .editor-section { padding: 0.8rem; border-radius: 14px; }
+  .editor-section h3 { font-size: 0.95rem; }
+  .editor-header-controls { gap: 0.3rem; }
+  .template-select { min-width: 100%; font-size: 0.75rem; }
+  .btn-icon { font-size: 0.68rem !important; padding: 0.35rem 0.5rem !important; }
+  
+  textarea { min-height: 180px; font-size: 0.82rem; padding: 0.8rem; border-radius: 10px; }
+  .ghost-text-overlay, .error-highlight-overlay { padding: 0.8rem; font-size: 0.82rem; }
+  
+  .editor-actions { gap: 0.3rem; }
+  .editor-actions .btn-inline { padding: 0.4rem 0.6rem; font-size: 0.7rem; }
+  
+  .stats-section { grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 1rem; }
+  .stat-card { padding: 0.7rem 0.4rem; border-radius: 12px; }
+  .stat-value { font-size: 1.3rem; }
+  .stat-label { font-size: 0.62rem; letter-spacing: 0.04em; }
+  
+  .speed-section { padding: 0.8rem; border-radius: 14px; }
+  .speed-value { font-size: 1.8rem; }
+  .speed-label { font-size: 0.6rem; }
+  .speed-metrics { gap: 0.5rem; }
+  .streak-card { font-size: 0.72rem; padding: 0.5rem; margin-top: 0.6rem; }
+  
+  .goal-section { padding: 0.8rem; }
+  .goal-section h3 { font-size: 0.9rem; }
+  .goal-inputs { gap: 0.4rem; }
+  .goal-field label { font-size: 0.7rem; }
+  .goal-field input { padding: 0.4rem 0.6rem; font-size: 0.8rem; }
+  
+  .tone-section { padding: 0.8rem; }
+  .tone-section h3 { font-size: 0.9rem; }
+  .tone-label { font-size: 1rem; }
+  .tone-bar-track { height: 6px; }
+  .tone-confidence { font-size: 0.68rem; }
+  
+  .theme-picker-section { padding: 0.8rem; }
+  .theme-picker-section h3 { font-size: 0.9rem; }
+  .theme-list { gap: 0.4rem; }
+  .swatch-color { width: 30px; height: 30px; border-radius: 8px; }
+  .theme-swatch span { font-size: 0.55rem; }
+  .theme-swatch { padding: 0.35rem; border-radius: 8px; }
+  
+  /* Keyboard */
+  .key-btn { width: 26px; height: 26px; font-size: 0.58rem; border-radius: 5px; }
+  .key-space { width: 120px; font-size: 0.55rem; }
+  .keyboard-row { gap: 3px; }
+  .keyboard-row:nth-child(2) { padding-left: 8px; }
+  .keyboard-row:nth-child(3) { padding-left: 16px; }
+  .heatmap-legend { font-size: 0.6rem; flex-wrap: wrap; justify-content: center; }
+  .legend-gradient { width: 60px; height: 6px; }
+  
+  /* Challenge */
+  .challenge-source { min-height: 60px; font-size: 0.78rem; padding: 0.7rem; }
+  .challenge-display { font-size: 0.78rem; padding: 0.6rem; max-height: 150px; }
+  .challenge-metric-value { font-size: 1rem; }
+  .challenge-metric-label { font-size: 0.6rem; }
+  
+  /* Rhythm */
+  .rhythm-chart { max-height: 120px; }
+  .rhythm-bar { height: 14px; }
+  .rhythm-bar-count { font-size: 0.55rem; }
+  
+  /* Modals */
+  .modal-content { width: 96%; padding: 1rem; border-radius: 14px; max-height: 90vh; }
+  .modal-header h2 { font-size: 1rem; }
+  .modal-close { width: 28px; height: 28px; font-size: 0.85rem; }
+  .dna-stats { gap: 0.5rem; }
+  .dna-stat-value { font-size: 1.1rem; }
+  .dna-stat-label { font-size: 0.6rem; }
+  .dna-chart-container canvas { height: 150px !important; }
+  
+  /* Focus Mode */
+  .focus-ambient-bar { 
+    bottom: 8px; padding: 0.4rem 0.5rem; gap: 0.2rem;
+    border-radius: 14px; max-width: 98vw;
+  }
+  .ambient-option { padding: 0.3rem 0.5rem; font-size: 0.68rem; }
+  body.focus-mode textarea { min-height: 45vh; }
+  
+  /* Profile */
+  .profile-container { padding: 1rem; }
+  .profile-stats { grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+  .profile-stat-card { padding: 0.6rem; }
+  .profile-stat-value { font-size: 1.1rem; }
+  .profile-stat-label { font-size: 0.55rem; }
+  .profile-avatar { width: 50px; height: 50px; font-size: 1.2rem; }
+  .profile-badges .badge-icon { font-size: 1.2rem; }
+  
+  /* Auth Forms */
+  .auth-container { margin: 0.5rem 0; padding: 1.2rem 1rem; border-radius: 14px; }
+  .auth-container h2 { font-size: 1.3rem; }
+  .form-field input { padding: 0.7rem 0.8rem; font-size: 0.85rem; }
+  .btn { padding: 0.75rem; font-size: 0.88rem; }
+  .auth-links { font-size: 0.82rem; }
+  
+  /* History */
+  .history-section { padding: 0.8rem; }
+  .history-section h3 { font-size: 0.9rem; }
+  .history-item { font-size: 0.72rem; padding: 0.4rem 0; }
+  .history-list { max-height: 150px; }
+  
+  /* Version Drawer */
+  .version-drawer { padding: 1rem; }
+  .version-drawer-header { padding: 0.8rem 0; }
+  .version-item { padding: 0.6rem; }
+  .version-time { font-size: 0.72rem; }
+  .version-preview { font-size: 0.68rem; }
+}
+
+/* ===== RESPONSIVE — VERY SMALL (max-width: 360px) ===== */
+@media (max-width: 360px) {
+  .dashboard-header h1 { font-size: 1.4rem; }
+  .stats-section { grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+  .stat-value { font-size: 1.1rem; }
+  .speed-value { font-size: 1.5rem; }
+  .key-btn { width: 22px; height: 22px; font-size: 0.5rem; }
+  .key-space { width: 100px; }
+  .keyboard-row { gap: 2px; }
+  .editor-header-controls .btn-icon { display: none; }
+  .editor-header-controls .btn-icon:nth-child(-n+2) { display: inline-flex; }
+  .template-select { display: none; }
+}
