@@ -517,7 +517,7 @@ body.focus-mode textarea { min-height: 70vh; }
   
   .editor-section { padding: 1.2rem; }
   .editor-section-header { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
-  .editor-header-controls { flex-wrap: wrap; gap: 0.4rem; width: 100%; }
+  .editor-header-controls { display: flex; flex-wrap: wrap; gap: 0.4rem; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .template-select { min-width: 140px; font-size: 0.78rem; padding: 0.45rem 0.7rem; }
   .btn-icon { font-size: 0.72rem !important; padding: 0.4rem 0.6rem !important; }
   
@@ -526,7 +526,7 @@ body.focus-mode textarea { min-height: 70vh; }
   .char-count-row { font-size: 0.75rem; }
   
   .editor-actions { flex-wrap: wrap; gap: 0.4rem; }
-  .editor-actions .btn-inline { padding: 0.5rem 0.75rem; font-size: 0.75rem; }
+  .editor-actions .btn-inline { padding: 0.5rem 0.75rem; font-size: 0.75rem; flex: 0 0 auto; }
   
   .stat-card { padding: 0.9rem 0.6rem; }
   .stat-value { font-size: 1.5rem; }
